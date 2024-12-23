@@ -5,7 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ReadQR"
         mc:Ignorable="d"
-        Title="QR Code Reader" Height="350" Width="500">
+        Title="QR Code Reader" Height="350" Width="500"
+        Background="#f0f8ff"
+        ResizeMode="NoResize"
+        WindowStyle="SingleBorderWindow"
+        WindowState="Normal"
+         WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*" />
@@ -26,22 +31,21 @@
                        HorizontalAlignment="Center"
                        TextAlignment="Center" />
 
-            <!-- テキストボックス部分 -->
+            <!-- 滑らかに丸めたテキストボックス -->
             <Grid>
-                <!-- プレースホルダーとして表示するTextBlock -->
-                <TextBlock Text="例: C:\Path\To\File"
-                           Foreground="Gray"
-                           VerticalAlignment="Center"
-                           Margin="5,0,0,0"
-                           IsHitTestVisible="False"
-                           Visibility="{Binding Text, ElementName=QRCodeTextBox, Converter={StaticResource TextToVisibilityConverter}}" />
-                <!-- 入力用のTextBox -->
-                <TextBox Name="QRCodeTextBox"
-                         TextChanged="TextBox_TextChanged"
-                         VerticalAlignment="Center"
-                         HorizontalAlignment="Stretch"
-                         Height="30"
-                         FontSize="16" />
+                <Border CornerRadius="15" BorderThickness="0" Background="White" Effect="{DynamicResource ShadowEffect}">
+                    <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="10">
+                        <TextBox Name="QRCodeTextBox"
+                                 KeyDown="QRCodeTextBox_KeyDown"
+                                 Background="Transparent"
+                                 BorderThickness="0"
+                                 VerticalAlignment="Center"
+                                 HorizontalAlignment="Stretch"
+                                 Height="30"
+                                 FontSize="16"
+                                 Padding="5,2" />
+                    </Border>
+                </Border>
             </Grid>
         </StackPanel>
     </Grid>

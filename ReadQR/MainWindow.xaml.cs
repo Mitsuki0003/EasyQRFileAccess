@@ -1,15 +1,9 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ReadQR
 {
@@ -22,29 +16,35 @@ namespace ReadQR
         {
             InitializeComponent();
         }
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void QRCodeTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             // 入力された文字列を取得
-            TextBox textBox = sender as TextBox;
-            string inputText = textBox.Text;
-
-            if (!string.IsNullOrWhiteSpace(inputText))
+            // Enterキーが押された場合のみ処理
+            if (e.Key == Key.Enter && sender is TextBox textBox)
             {
-                try
+                string inputText = textBox.Text;
+
+                if (!string.IsNullOrWhiteSpace(inputText))
                 {
-                    // 入力文字列をエクスプローラーで開く
-                    if (Directory.Exists(inputText) || File.Exists(inputText))
+                    try
                     {
-                        Process.Start("explorer.exe", inputText);
+                        // 入力文字列をエクスプローラーで開く
+                        if (Directory.Exists(inputText) || File.Exists(inputText))
+                        {
+                            Process.Start("explorer.exe", inputText);
+
+                            // エクスプローラーが開いた後、テキストボックスをクリア
+                            textBox.Clear();
+                        }
+                        else
+                        {
+                            MessageBox.Show("指定されたパスは存在しません。", "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        MessageBox.Show("指定されたパスは存在しません。", "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show($"エクスプローラーを開けませんでした: {ex.Message}", "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"エクスプローラーを開けませんでした: {ex.Message}", "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }

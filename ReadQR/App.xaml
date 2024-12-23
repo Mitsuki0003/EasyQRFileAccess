@@ -5,5 +5,12 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <local:TextToVisibilityConverter x:Key="TextToVisibilityConverter" />
+        
+        <!-- 影の効果を定義 -->
+        <DropShadowEffect x:Key="ShadowEffect"
+                          BlurRadius="10"
+                          ShadowDepth="2"
+                          Direction="270"
+                          Color="#888888" />
     </Application.Resources>
 </Application>

@@ -13,7 +13,8 @@ namespace ReadQR
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            string text = value as string;
+            // value を安全にキャストし、null の場合も考慮
+            string? text = value as string;
             return string.IsNullOrEmpty(text) ? Visibility.Visible : Visibility.Collapsed;
         }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
