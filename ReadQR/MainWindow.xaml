@@ -1,0 +1,48 @@
+﻿<Window x:Class="ReadQR.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ReadQR"
+        mc:Ignorable="d"
+        Title="QR Code Reader" Height="350" Width="500">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*" />
+            <!-- 上部のスペース -->
+            <RowDefinition Height="3*" />
+            <!-- ラベルとテキストボックス -->
+            <RowDefinition Height="5*" />
+            <!-- 下部のスペース -->
+        </Grid.RowDefinitions>
+
+        <!-- ラベルとテキストボックスを中央揃え -->
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="400">
+            <!-- ラベル -->
+            <TextBlock Text="QRコードを読み込んでください"
+                       FontSize="18"
+                       FontWeight="Bold"
+                       Margin="0,0,0,20"
+                       HorizontalAlignment="Center"
+                       TextAlignment="Center" />
+
+            <!-- テキストボックス部分 -->
+            <Grid>
+                <!-- プレースホルダーとして表示するTextBlock -->
+                <TextBlock Text="例: C:\Path\To\File"
+                           Foreground="Gray"
+                           VerticalAlignment="Center"
+                           Margin="5,0,0,0"
+                           IsHitTestVisible="False"
+                           Visibility="{Binding Text, ElementName=QRCodeTextBox, Converter={StaticResource TextToVisibilityConverter}}" />
+                <!-- 入力用のTextBox -->
+                <TextBox Name="QRCodeTextBox"
+                         TextChanged="TextBox_TextChanged"
+                         VerticalAlignment="Center"
+                         HorizontalAlignment="Stretch"
+                         Height="30"
+                         FontSize="16" />
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>
