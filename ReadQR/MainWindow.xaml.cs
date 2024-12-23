@@ -23,6 +23,8 @@ namespace ReadQR
             if (e.Key == Key.Enter && sender is TextBox textBox)
             {
                 string inputText = textBox.Text;
+                // スラッシュ (/) をバックスラッシュ (\) に置き換え
+                inputText = inputText.Replace('/', '\\');
 
                 if (!string.IsNullOrWhiteSpace(inputText))
                 {
@@ -35,6 +37,7 @@ namespace ReadQR
 
                             // エクスプローラーが開いた後、テキストボックスをクリア
                             textBox.Clear();
+                            textBox.Focus(); // フォーカスをテキストボックスに戻す
                         }
                         else
                         {
